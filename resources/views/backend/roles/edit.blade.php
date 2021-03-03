@@ -10,15 +10,9 @@
         <h3 class="card-title">
           {{ $config['title'] }}
         </h3>
-        <div class="card-toolbar">
-          <div class="example-tools justify-content-center">
-            <span class="example-toggle" data-toggle="tooltip" title="View code"></span>
-            <span class="example-copy" data-toggle="tooltip" title="Copy code"></span>
-          </div>
-        </div>
       </div>
       <!--begin::Form-->
-      <form id="formUpdate" action="{{ route('backend.roles.destroy', Request::segment(3)) }}">
+      <form id="formUpdate" action="{{ route('backend.roles.update', Request::segment(3)) }}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @method('PUT')
         <div class="card-body">
@@ -66,7 +60,6 @@
 {{-- vendors --}}
 
 {{-- page scripts --}}
-<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $("#formUpdate").submit(function(e){
@@ -106,7 +99,7 @@
             }
           },error: function(response){
               form.find("[type='submit']").prop('disabled', false).text('Submit').find("[role='status']").removeClass("spinner-border spinner-border-sm");
-              toastr.error("Please check your connection", 'Failed !');
+              toastr.error(response.responseJSON.message, 'Failed !');
           }
         });
     });

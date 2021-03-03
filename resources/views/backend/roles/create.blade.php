@@ -10,12 +10,6 @@
         <h3 class="card-title">
           {{ $config['title'] }}
         </h3>
-        <div class="card-toolbar">
-          <div class="example-tools justify-content-center">
-            <span class="example-toggle" data-toggle="tooltip" title="View code"></span>
-            <span class="example-copy" data-toggle="tooltip" title="Copy code"></span>
-          </div>
-        </div>
       </div>
       <!--begin::Form-->
       <form id="formStore" action="{{ route('backend.roles.store') }}">
@@ -64,7 +58,6 @@
 {{-- vendors --}}
 
 {{-- page scripts --}}
-<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $("#formStore").submit(function(e) {
@@ -73,6 +66,7 @@
       var btnHtml = form.find("[type='submit']").html();
       var spinner = $('<span role="status" class="spinner-border spinner-border-sm" aria-hidden="true"></span>');
       var url = form.attr("action");
+      var data = new FormData(this);
       $.ajax({
         beforeSend: function() {
           form.find("[type='submit']").prop('disabled', true).text(' Loading. . .').prepend(spinner);
@@ -101,7 +95,7 @@
         },
         error: function(response) {
           form.find("[type='submit']").prop('disabled', false).text('Submit').find("[role='status']").removeClass("spinner-border spinner-border-sm");
-          toastr.error("Please check your connection", 'Failed !');
+          toastr.error(response.responseJSON.message, 'Failed !');
         }
       });
     });

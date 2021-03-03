@@ -62,6 +62,57 @@ var KTWizard1 = function () {
 				}
 			}
 		));
+		// Step 1
+		_validations.push(FormValidation.formValidation(
+			_formEl,
+			{
+				fields: {
+					address1: {
+						validators: {
+							notEmpty: {
+								message: 'Address is required'
+							}
+						}
+					},
+					postcode: {
+						validators: {
+							notEmpty: {
+								message: 'Postcode is required'
+							}
+						}
+					},
+					city: {
+						validators: {
+							notEmpty: {
+								message: 'City is required'
+							}
+						}
+					},
+					state: {
+						validators: {
+							notEmpty: {
+								message: 'State is required'
+							}
+						}
+					},
+					country: {
+						validators: {
+							notEmpty: {
+								message: 'Country is required'
+							}
+						}
+					}
+				},
+				plugins: {
+					trigger: new FormValidation.plugins.Trigger(),
+					// Bootstrap Framework Integration
+					bootstrap: new FormValidation.plugins.Bootstrap({
+						//eleInvalidClass: '',
+						eleValidClass: '',
+					})
+				}
+			}
+		));
 
 		// Step 2
 		_validations.push(FormValidation.formValidation(
@@ -279,7 +330,46 @@ var KTWizard1 = function () {
 				}
 			}).then(function (result) {
 				if (result.value) {
-					_formEl.submit(); // Submit form
+					// _formEl.submit(); // Submit form
+
+          _formEl.submit(function(e) {
+          e.preventDefault();
+          var form = $(this);
+          var btnHtml = form.find("[type='submit']").html();
+          var spinner = $('<span role="status" class="spinner-border spinner-border-sm" aria-hidden="true"></span>');
+          var url = form.attr("action");
+          var data = new FormData(this);
+          $.ajax({
+            beforeSend: function() {
+              form.find("[type='submit']").prop('disabled', true).text(' Loading. . .').prepend(spinner);
+            },
+            cache: false,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(response) {
+              form.find("[type='submit']").prop('disabled', false).text('Submit').find("[role='status']").removeClass("spinner-border spinner-border-sm");
+              if (response.status == "success") {
+                toastr.success(response.message, 'Success !');
+                datatable.draw();
+                $('#modalCreate').modal('hide');
+              } else {
+                $("[role='alert']").parent().removeAttr("style");
+                $(".alert-text").html('');
+                $.each(response.error, function(key, value) {
+                  $(".alert-text").append('<span style="display: block">'+value+'</span>');
+                });
+                toastr.error("Please complete your form", 'Failed !');
+              }
+            },
+            error: function(response) {
+              form.find("[type='submit']").prop('disabled', false).text('Submit').find("[role='status']").removeClass("spinner-border spinner-border-sm");
+              toastr.error(response.responseJSON.message, 'Failed !');
+            }
+          });
+        });
 				} else if (result.dismiss === 'cancel') {
 					Swal.fire({
 						text: "Your form has not been submitted!.",

@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DataTables;
-use Illuminate\Support\Facades\DB;
+use Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -17,19 +18,21 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-      $page_title = 'Dashboard';
-      $page_description = 'Some description for the page';
-        if ($request->ajax()) {
-            $data = User::query();
-            return Datatables::eloquent($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
-                    return $actionBtn;
-                })->make(true);
+      $config = array(
+        "page_title"         => "Users",
+        "page_description"   => "Manage Users list",
+      );
+      if ($request->ajax()) {
+          $data = User::query();
+          return Datatables::eloquent($data)
+              ->addIndexColumn()
+              ->addColumn('action', function($row){
+                  $actionBtn = '<a href="users/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" data-toggle="modal" data-target="#modalDelete" data-id="'. $row->id.'" class="delete btn btn-danger btn-sm">Delete</a>';
+                  return $actionBtn;
+              })->make(true);
 
-        }
-      return view('backend.users.index', compact('page_title', 'page_description'));
+      }
+      return view('backend.users.index', compact('config'));
     }
 
     /**
@@ -39,7 +42,11 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+      $config = array(
+        "page_title"    => "Create Users",
+        "title"         => "Create Users",
+      );
+      return view('backend.users.create', compact('config'));
     }
 
     /**
@@ -50,18 +57,33 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+      $validator = Validator::make($request->all(), [
+        'name'      => 'required',
+        'email'     => 'required|email',
+        'active'    => 'required|between:0,1',
+        'password'  => 'required|string',
+      ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+      if($validator->passes()){
+        $data             = new User();
+        $data->name       = $request->name;
+        if(!empty($request->password)){
+          $data->password = Hash::make($request->password);
+        }
+        $data->email      = $request->email;
+        $data->active     = $request->active;
+
+        if($data->save()){
+          $response = response()->json([
+              'status' => 'success',
+              'message' => 'Data has been saved'
+          ]);
+        }
+      }else{
+      $response = response()->json(['error'=>$validator->errors()->all()]);
+      }
+      return $response;
+
     }
 
     /**
@@ -72,7 +94,13 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+      $config = array(
+        "page_title"    => "Edit Users",
+        "title"         => "Edit Users",
+      );
+      $data = User::findOrFail($id);
+
+      return view('backend.users.edit',compact('config', 'data'));
     }
 
     /**
@@ -84,7 +112,31 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $validator = Validator::make($request->all(), [
+        'name'      => 'required',
+        'email'     => 'required|email',
+        'active'    => 'required|between:0,1',
+      ]);
+
+      $data = User::find($id);
+      if($validator->passes()){
+        $data->name       = $request->name;
+        if(!empty($request->password)){
+          $data->password   = Hash::make($request->password);
+        }
+        $data->email      = $request->email;
+        $data->active     = $request->active;
+
+        if($data->save()){
+          $response = response()->json([
+              'status' => 'success',
+              'message' => 'Data has been saved'
+          ]);
+        }
+      }else{
+      $response = response()->json(['error'=>$validator->errors()->all()]);
+      }
+      return $response;
     }
 
     /**
@@ -92,9 +144,16 @@ class UsersController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+    */
     public function destroy($id)
     {
-        //
+      $data = User::find($id);
+      if($data->delete()){
+          $response = response()->json([
+              'status' => 'success',
+              'message' => 'Data has been saved'
+          ]);
+      }
+      return $response;
     }
 }

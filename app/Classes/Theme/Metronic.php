@@ -189,7 +189,7 @@ class Metronic
             $cls = array_merge($cls, explode(' ', $class));
         }
 
-        echo '<span class="'.implode(' ', $cls).'"><!--begin::Svg Icon | path:'.$filepath.'-->'.$string.'<!--end::Svg Icon--></span>';;
+        echo '<span class="'.implode(' ', $cls).'"><!--begin::Svg Icon | path:'.$filepath.'-->'.$string.'<!--end::Svg Icon--></span>';
     }
 
     /**

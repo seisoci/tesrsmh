@@ -70,7 +70,7 @@ return [
 
     // Page loader
     'page-loader' => [
-        'type' => '' // default, spinner-message, spinner-logo
+        'type' => 'default' // default, spinner-message, spinner-logo
     ],
 
     // Header
@@ -169,7 +169,7 @@ return [
     // Footer
     'footer' => [
         'width' => 'fluid', // fluid, fixed
-        'fixed' => true
+        'fixed' => false
     ],
 
     // Extras
@@ -177,7 +177,7 @@ return [
 
         // Search
         'search' => [
-            'display' => true,
+            'display' => false,
             'layout' => 'dropdown', // offcanvas, dropdown
             'offcanvas' => [
                 'direction' => 'right'

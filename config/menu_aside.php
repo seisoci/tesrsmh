@@ -5,27 +5,6 @@ return [
     'items' => [
         // Dashboard
         [
-            'title' => 'Dashboard',
-            'root' => true,
-            'icon' => 'media/svg/icons/Design/Layers.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/',
-            'new-tab' => false,
-        ],
-        [
-            'title' => 'Menus',
-            'root' => true,
-            'icon' => 'media/svg/icons/Layout/Layout-top-panel-4.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/backend/menus',
-            'new-tab' => false,
-        ],
-        [
-            'title' => 'Roles',
-            'root' => true,
-            'icon' => 'media/svg/icons/Code/Spy.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/backend/roles',
-            'new-tab' => false,
-        ],
-        [
             'title' => 'Users',
             'root' => true,
             'icon' => 'media/svg/icons/General/User.svg', // or can be 'flaticon-home' or any flaticon-*
@@ -33,33 +12,26 @@ return [
             'new-tab' => false,
         ],
         [
-            'title' => 'Posts',
+            'title' => 'Formations',
             'root' => true,
-            'icon' => 'media/svg/icons/Communication/Archive.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/posts',
+            'icon' => 'media/svg/icons/General/Clipboard.svg', // or can be 'flaticon-home' or any flaticon-*
+            'page' => '/backend/formations',
             'new-tab' => false,
         ],
         [
-            'title' => 'Pages',
+            'title' => 'Applicants',
             'root' => true,
             'icon' => 'media/svg/icons/Files/File.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/pages',
+            'page' => '/backend/applicants',
             'new-tab' => false,
         ],
         [
-            'title' => 'Galleries',
+            'title' => 'Logout',
             'root' => true,
-            'icon' => 'media/svg/icons/Files/Pictures1.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/galleries',
+            'icon' => 'media/svg/icons/Electric/Shutdown.svg', // or can be 'flaticon-home' or any flaticon-*
+            'page' => '/logout',
             'new-tab' => false,
-        ],
-        [
-            'title' => 'Settings',
-            'root' => true,
-            'icon' => 'media/svg/icons/Code/Settings4.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/settings',
-            'new-tab' => false,
-        ],
+        ]
 
         // Custom
         // [
