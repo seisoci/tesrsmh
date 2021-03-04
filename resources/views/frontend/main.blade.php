@@ -86,7 +86,7 @@
 <body>
   <section id="main" class="is-loading">
     <div class="container">
-      <div class="d-flex justify-content-center">
+      <div class="py-0">
         <div class="form-card rounded-lg">
           <h4 class="d-block text-center">Pendaftaran Rekrutmen 2021</h4>
           <div class="form-group">
