@@ -128,7 +128,7 @@ class RegistrationController extends Controller
           'writing'       => $request->input('foreign_languages.writing'),
         ]);
 
-        foreach ($request->families['full_name'] as $key => $val) {
+        foreach ($request->work_experiences['name'] as $key => $val) {
           WorkExperience::create([
             'applicant_id'  => $applicant_id->id,
             'name'          => $request->input('work_experiences.name.'.$key),

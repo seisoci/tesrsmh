@@ -29,14 +29,14 @@ class Applicant extends Model
     'phone_2',
   ];
 
-  protected $casts = [
-    'created_at' => 'date:Y-m-d H:i:s',
-  ];
+  // protected $casts = [
+  //   'created_at' => 'date:Y-m-d H:i:s',
+  // ];
 
-  // public function getCreatedAtAttribute($value){
-  //   $date = Carbon::parse($value);
-  //   return $date->format('Y-m-d H:i');
-  // }
+  public function getCreatedAtAttribute($value){
+    $date = Carbon::parse($value)->timezone('Asia/Jakarta');
+    return $date->format('Y-m-d H:i:s');
+  }
 
   public function formation()
   {

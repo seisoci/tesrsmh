@@ -519,10 +519,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                   <div class="checkbox-inline mt-3">
                                     <label class="checkbox checkbox-square">
                                       <input type="checkbox" checked name="education[continue_education]" value="0">
-                                      <span></span>Tidak</label>
+                                      Tidak</label>
                                     <label class="checkbox checkbox-square">
                                       <input type="checkbox" name="education[continue_education]" value="1">
-                                      <span></span>Ya</label>
+                                      Ya</label>
                                   </div>
                                 </div>
                               </div>
@@ -591,17 +591,17 @@ License: You must have a valid license purchased only from themeforest(the above
                                   value="0">
                                 <label class="checkbox checkbox-square">
                                   <input type="checkbox" name="foreign_languages[speaking]" value="1">
-                                  <span></span>Membaca</label>
+                                  Membaca</label>
                                 <input type="checkbox" checked name="foreign_languages[listening]" style="display:none"
                                   value="0">
                                 <label class="checkbox checkbox-square">
                                   <input type="checkbox" name="foreign_languages[listening]" value="1">
-                                  <span></span>Mendengar</label>
+                                  Mendengar</label>
                                 <input type="checkbox" checked name="foreign_languages[writing]" style="display:none"
                                   value="0">
                                 <label class="checkbox checkbox-square">
                                   <input type="checkbox" name="foreign_languages[writing]" value="1">
-                                  <span></span>Menulis</label>
+                                  Menulis</label>
                               </div>
                             </div>
                             <hr>
@@ -698,7 +698,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 name="others[answer_4]" placeholder="Jawaban anda" />
                             </div>
                             <div class="form-group">
-                              <label>5. Apakah anda memilki pekerjaan part time?dimana san sebagai apa?</label>
+                              <label>5. Apakah anda memilki pekerjaan part time? dimana dan sebagai apa?</label>
                               <input type="text" class="form-control form-control-solid form-control-lg"
                                 name="others[answer_5]" placeholder="Jawaban anda" />
                             </div>
