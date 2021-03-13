@@ -14,10 +14,10 @@ class RolesController extends Controller
 {
     function __construct()
     {
-        //  $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index']]);
-        //  $this->middleware('permission:role-create', ['only' => ['create','store']]);
-        //  $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-        //  $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+         $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index']]);
+         $this->middleware('permission:role-create', ['only' => ['create','store']]);
+         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -31,11 +31,11 @@ class RolesController extends Controller
         "page_description"   => "Manage roles and permission every pages",
       );
         if ($request->ajax()) {
-          $data = Role::query();
+          $data = Role::where('name', '!=', 'super-admin');
           return Datatables::eloquent($data)
           ->addIndexColumn()
           ->addColumn('action', function($row){
-              $actionBtn = '<a href="roles/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" data-toggle="modal" data-target="#modalDelete" data-id="'. $row->id.'" class="delete btn btn-danger btn-sm">Delete</a>';
+              $actionBtn = '<a href="roles/'.$row->id.'/edit" class="edit btn btn-success btn-sm">Edit</a>';
               return $actionBtn;
           })->make(true);
 

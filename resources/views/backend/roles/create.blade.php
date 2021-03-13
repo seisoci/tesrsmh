@@ -32,7 +32,6 @@
               @foreach($data as $value)
               <label class="checkbox">
                 <input type="checkbox" name="permission[]" value="{{ $value->id }}" />
-                <span></span>
                 {{ ucwords($value->name) }}
               </label>
               @endforeach
@@ -40,7 +39,7 @@
           </div>
           <div class="card-footer">
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
-            <button type="reset" class="btn btn-secondary">Cancel</button>
+            <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
           </div>
       </form>
       <!--end::Form-->

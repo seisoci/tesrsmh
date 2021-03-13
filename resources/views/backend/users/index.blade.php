@@ -109,6 +109,7 @@
     <table class="table table-bordered table-hover table-checkable" id="Datatable">
       <thead>
         <tr>
+          <th>Image</th>
           <th>Name</th>
           <th>Email</th>
           <th>Active</th>
@@ -146,6 +147,7 @@
         ajax: "{{ route('backend.users.index') }}",
         buttons: ["print", "copyHtml5", "excelHtml5", "csvHtml5", "pdfHtml5"],
         columns: [
+            {data: 'image', name: 'image'},
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
             {data: 'active', name: 'active'},
@@ -153,11 +155,20 @@
         ],
         columnDefs: [
         {
-          orderable: false, targets: 0
+          className: 'dt-center',
+          orderable: false,
+          targets: 0,
+          render: function(data, type, full, meta) {
+            let output = `
+              <div class="symbol symbol-80">
+                <img src="` + data + `" alt="photo">
+              </div>`
+            return output;
+          }
         },
         {
           className: 'dt-center',
-          targets: 2,
+          targets: 3,
           width: '75px',
           render: function(data, type, full, meta) {
             var status = {

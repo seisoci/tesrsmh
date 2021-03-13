@@ -12,6 +12,13 @@ return [
             'new-tab' => false,
         ],
         [
+            'title' => 'Roles',
+            'root' => true,
+            'icon' => 'media/svg/icons/General/Clipboard.svg', // or can be 'flaticon-home' or any flaticon-*
+            'page' => '/backend/roles',
+            'new-tab' => false,
+        ],
+        [
             'title' => 'Formations',
             'root' => true,
             'icon' => 'media/svg/icons/General/Clipboard.svg', // or can be 'flaticon-home' or any flaticon-*

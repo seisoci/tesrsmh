@@ -23,6 +23,24 @@
             </div>
           </div>
           <div class="form-group">
+            <div class="image-input" id="kt_image_2">
+              <div class="image-input-wrapper" style="background-image: url({{ asset('/media/users/blank.png') }})">
+              </div>
+              <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
+                <i class="fa fa-pen icon-sm text-muted"></i>
+                <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg" />
+                <input type="hidden" name="profile_avatar_remove" />
+              </label>
+
+              <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
+                <i class="ki ki-bold-close icon-xs text-muted"></i>
+              </span>
+            </div>
+            <span class="form-text text-muted">Maximum file 2 MB and format png, jpg, jpeg</span>
+          </div>
+          <div class="form-group">
             <label>Full Name <span class="text-danger">*</span></label>
             <input type="text" name="name" class="form-control" placeholder="Enter name" />
           </div>
@@ -35,15 +53,28 @@
             <input type="password" name="password" class="form-control" placeholder="Enter password" />
           </div>
           <div class="form-group">
+            <label>Retype Password <span class="text-danger">*</span></label>
+            <input type="password" name="password_confirmation" class="form-control"
+              placeholder="Enter retype password" />
+          </div>
+          <div class="form-group">
             <label for="activeSelect">Active <span class="text-danger">*</span></label>
             <select class="form-control" id="activeSelect" name="active">
               <option value="0">Inactive</option>
               <option value="1">Active</option>
             </select>
           </div>
+          <div class="form-group">
+            <label for="roleSelect">Role <span class="text-danger">*</span></label>
+            <select class="form-control" id="roleSelect" name="role">
+              @foreach ($data['roles'] ?? array() as $item)
+              <option value="{{ $item->name }}">{{ ucfirst($item->name) }}</option>
+              @endforeach
+            </select>
+          </div>
           <div class="card-footer">
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
-            <button type="reset" class="btn btn-secondary">Cancel</button>
+            <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
           </div>
       </form>
       <!--end::Form-->
@@ -63,6 +94,8 @@
 {{-- page scripts --}}
 <script type="text/javascript">
   $(document).ready(function(){
+    new KTImageInput('kt_image_2');
+
     $("#formStore").submit(function(e) {
       e.preventDefault();
       var form = $(this);

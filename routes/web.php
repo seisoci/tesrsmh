@@ -50,12 +50,24 @@ Route::post('/registration/{id}', [RegistrationController::class, 'store']);
 Route::get('/{id}', [IndexController::class, 'show']);
 
 Route::middleware('auth:web')->group( function () {
-  Route::group(['prefix' => 'backend', 'as' => 'backend.'], function () {
-      Route::get('applicants/select2', [BackendApplicantsController::class, 'select2'])->name('applicants.select2');
-      Route::resource('pages', BackendPagesController::class)->except('show');
-      Route::resource('users', BackendUsersController::class)->except('show');
-      Route::resource('roles', BackendRolesController::class);
-      Route::resource('formations', BackendFormationsController::class)->except(['show', 'edit', 'create']);
-      Route::resource('applicants', BackendApplicantsController::class)->except(['edit','edit','create']);
+  Route::group(['middleware' => ['role:super-admin']], function () {
+    Route::group(['prefix' => 'backend', 'as' => 'backend.'], function () {
+        Route::get('applicants/select2', [BackendApplicantsController::class, 'select2'])->name('applicants.select2');
+        Route::resource('pages', BackendPagesController::class)->except('show');
+        Route::resource('users', BackendUsersController::class)->except('show');
+        Route::resource('roles', BackendRolesController::class)->except(['create', 'show', 'update', 'destroy']);
+        Route::resource('formations', BackendFormationsController::class)->except(['show', 'edit', 'create']);
+        Route::resource('applicants', BackendApplicantsController::class)->except(['edit','edit','create']);
+    });
   });
+  // Route::group(['middleware' => ['role:writer']], function () {
+  //   Route::group(['prefix' => 'backend', 'as' => 'backend.'], function () {
+  //       Route::get('applicants/select2', [BackendApplicantsController::class, 'select2'])->name('applicants.select2');
+  //       Route::resource('pages', BackendPagesController::class)->except('show');
+  //       Route::resource('users', BackendUsersController::class)->except('show');
+  //       Route::resource('roles', BackendRolesController::class);
+  //       Route::resource('formations', BackendFormationsController::class)->except(['show', 'edit', 'create']);
+  //       Route::resource('applicants', BackendApplicantsController::class)->except(['edit','edit','create']);
+  //   });
+  // });
 });
